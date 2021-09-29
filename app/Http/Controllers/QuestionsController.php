@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AskQuestionRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
 
@@ -14,10 +15,9 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-        //
-        $questions = Question::latest()->simplePaginate(5);
-//        dd($questions -> toArray());
+        $questions = Question::with('user')->latest()->simplePaginate(5);
         return view('questions.index', compact('questions'));
+
     }
 
     /**
@@ -28,6 +28,8 @@ class QuestionsController extends Controller
     public function create()
     {
         //
+        $question = new Question();
+        return view('questions.create', compact('question'));
     }
 
     /**
@@ -36,9 +38,11 @@ class QuestionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AskQuestionRequest $request)
     {
         //
+        $request->user()->questions()->create($request->only('title', 'body'));
+        return redirect('/questions')->with('success', "Your question has been submitted");
     }
 
     /**
@@ -62,6 +66,8 @@ class QuestionsController extends Controller
     public function edit(Question $question)
     {
         //
+        return view("questions.edit", compact('question'));
+
     }
 
     /**
@@ -71,9 +77,13 @@ class QuestionsController extends Controller
      * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(AskQuestionRequest $request, Question $question)
     {
         //
+        $question->update($request->only('title', 'body'));
+        return redirect('/questions')->with('success', "Your question has been edited");
+
+
     }
 
     /**
