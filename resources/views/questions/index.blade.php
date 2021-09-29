@@ -36,12 +36,20 @@
                                             <a href="{{$question->url}}">{{$question->title}}</a>
                                         </h3>
                                         <div class="ml-auto">
+                                            @if(Auth::user())
+                                                @if(\Gate::allows('update-question', $question))
                                             <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-info">Edit </a>
+                                                @endif
+                                                @endif
+                                            @if(Auth::user())
+                                                    @if(\Gate::allows('delete-question', $question))
                                             <form action="{{ route('questions.destroy', $question->id) }}" method="POST" class="form-delete">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure')">Delete</button>
                                             </form>
+                                                    @endif
+                                                @endif
                                         </div>
                                     </div>
 
