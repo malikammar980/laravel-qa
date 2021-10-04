@@ -18315,6 +18315,10 @@ form.form-delete {
   margin-top: 10px;
 }
 
+form.form-delete {
+  display: inline;
+}
+
 .vote-controls {
   min-width: 60px;
   margin-right: 30px;
@@ -18337,7 +18341,7 @@ form.form-delete {
 .vote-controls a.off, .vote-controls a.off:hover {
   color: #adb5bd;
 }
-.vote-controls a.favorite.favorited, .vote-controls a.favorite.favorite:hover {
+.vote-controls a.favorite.favorited, .vote-controls a.favorite.favorited:hover {
   color: #ffed4a;
 }
 .vote-controls a.vote-accepted {
