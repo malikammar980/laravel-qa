@@ -30,3 +30,6 @@ Route::resource('questions', QuestionsController::class)->except('show');
 //Route::post('/questions/{question}/answers', 'App\Http\Controllers\AnswersController@store')->name('answers.store');
 Route::resource('questions.answers', AnswersController::class)->only(['store', 'update', 'edit', 'destroy']);
 Route::get('questions/{slug}', 'App\Http\Controllers\QuestionsController@show')->name('questions.show');
+
+Route::post('/answers/{answer}/accept', 'App\Http\Controllers\AcceptAnswerController')->name('answers.accept');
+
